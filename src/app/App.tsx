@@ -1,8 +1,8 @@
-import ComputePage from "./components/ComputePage";
+import SovereignPage from "./components/SovereignPage";
 
 export default function App() {
   return (
-    <ComputePage />
+    <SovereignPage />
   );
 }
 

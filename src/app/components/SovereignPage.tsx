@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Infinity as InfinityIcon, 
   Leaf, 
@@ -14,7 +14,9 @@ import {
   CheckSquare,
   Square,
   Info,
-  CircleDot
+  CircleDot,
+  Calculator,
+  Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -69,7 +71,7 @@ export default function SovereignPage() {
                 activeTab === 'monk' ? 'text-emerald-400 border-b-2 border-emerald-500' : 'text-zinc-500 hover:text-emerald-400'
               }`}
             >
-              The Ex-Monk
+              The Mind Gym
             </button>
             <button 
               onClick={() => setActiveTab('machine')} 
@@ -83,9 +85,10 @@ export default function SovereignPage() {
 
           {/* Telemetry Indicator (Desktop) */}
           <div className="hidden md:flex items-center gap-4 border-l border-zinc-800 pl-4">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-right text-zinc-500 space-y-0.5">
-              <div>System: <span className="text-emerald-400 font-bold">Operational</span></div>
-              <div>Telemetry Engine: <span className="text-cyan-400 font-bold">Active</span></div>
+            <div className="text-xs text-right text-zinc-400 space-y-0.5">
+              <div>System Status: <span className="text-green-400 font-semibold">Online</span></div>
+              <div>H = O/D Engine: <span className="text-emerald-400 font-semibold">Active</span></div>
+              <div>Flywheel Velocity: <span className="text-cyan-400 font-semibold">High</span></div>
             </div>
           </div>
 
@@ -142,36 +145,68 @@ export default function SovereignPage() {
    ========================================== */
 function HubView({ setActiveTab }: { setActiveTab: (tab: 'dashboard' | 'monk' | 'machine') => void }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 text-left">
       
-      {/* Monk Portal */}
-      <div 
-        onClick={() => setActiveTab('monk')}
-        className="p-10 rounded-xl cursor-pointer bg-zinc-950/40 border border-zinc-800 hover:border-emerald-500/40 transition-all duration-500 group relative overflow-hidden flex flex-col justify-center items-center text-center min-h-[420px]"
-      >
-        <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        <div className="w-16 h-16 rounded-full bg-emerald-950/20 border border-emerald-800/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-          <Leaf className="w-8 h-8 text-emerald-400" />
+      {/* Welcome / Stats Panel */}
+      <div className="p-8 rounded-2xl bg-zinc-950/40 border border-zinc-800 border-l-2 border-l-zinc-500 col-span-1 md:col-span-2 flex flex-col justify-between">
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-light mb-4 tracking-tight text-white">Welcome to Sovereign</h2>
+          <p className="text-zinc-400 max-w-2xl mb-6 text-sm sm:text-base leading-relaxed">
+            You are building a high-leverage, 1-Person AI Business. This ecosystem bridges the gap between extreme mindfulness (the Monk) and extreme execution (the CEO). Manage the mechanics with AI; manage the meaning with your human taste and judgment.
+          </p>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-emerald-400 font-mono">High Agency</span>
+            <span className="bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 text-cyan-400 font-mono">Decoupling Machine</span>
+            <span className="bg-zinc-800 px-3 py-1 rounded-full border border-zinc-700 text-zinc-300 font-mono">Attention Manufacturing</span>
+          </div>
         </div>
-        <h2 className="text-2xl font-light tracking-wider uppercase mb-4 text-zinc-200">The Mind Gym</h2>
-        <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
-          "You are the ocean, not the wave." Cultivate high-agency detachment, structural baseline optimization, and manage the H = O/D equilibrium.
-        </p>
+        
+        <div className="mt-8 pt-6 border-t border-zinc-900 grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div className="text-3xl sm:text-4xl font-bold text-white font-mono">50+</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Transcripts Synthesized</div>
+          </div>
+          <div>
+            <div className="text-3xl sm:text-4xl font-bold text-emerald-400 font-mono">H = O/D</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Happiness Equation</div>
+          </div>
+          <div>
+            <div className="text-3xl sm:text-4xl font-bold text-cyan-400 font-mono">ARR</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Agent Framework</div>
+          </div>
+        </div>
       </div>
 
-      {/* Machine Portal */}
-      <div 
-        onClick={() => setActiveTab('machine')}
-        className="p-10 rounded-xl cursor-pointer bg-zinc-950/40 border border-zinc-800 hover:border-cyan-500/40 transition-all duration-500 group relative overflow-hidden flex flex-col justify-center items-center text-center min-h-[420px]"
-      >
-        <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        <div className="w-16 h-16 rounded-full bg-cyan-950/20 border border-cyan-800/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-          <Cpu className="w-8 h-8 text-cyan-400" />
+      {/* Quick Access Card */}
+      <div className="p-8 rounded-2xl bg-zinc-950/40 border border-zinc-800 flex flex-col justify-between gap-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4 text-zinc-200">Core Modules</h3>
+          <div className="space-y-3">
+            <button 
+              onClick={() => setActiveTab('monk')} 
+              className="w-full flex items-center justify-between p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl hover:border-emerald-500/40 group text-left transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <Leaf className="w-4.5 h-4.5 text-emerald-400 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="font-medium text-zinc-300 group-hover:text-white transition-colors">The Mind Gym</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-emerald-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+            </button>
+            <button 
+              onClick={() => setActiveTab('machine')} 
+              className="w-full flex items-center justify-between p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl hover:border-cyan-500/40 group text-left transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <Cpu className="w-4.5 h-4.5 text-cyan-400 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="font-medium text-zinc-300 group-hover:text-white transition-colors">The AI CEO</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+            </button>
+          </div>
         </div>
-        <h2 className="text-2xl font-light tracking-wider uppercase mb-4 text-zinc-200">The Flywheel Architect</h2>
-        <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
-          Build asymmetric leverage through the ARR framework, map dense workflow nodes, and engineer low-friction autonomous infrastructure.
-        </p>
+        <div className="text-center text-zinc-500 text-xs font-mono">
+          Select a module to begin your session.
+        </div>
       </div>
 
     </div>
@@ -185,24 +220,17 @@ function MonkView() {
   const [poleText, setPoleText] = useState('');
   const [isReleased, setIsReleased] = useState(false);
   const [breathPhase, setBreathPhase] = useState<'Inhale' | 'Hold' | 'Exhale' | 'Hold'>('Inhale');
-  const [secondsLeft, setSecondsLeft] = useState(4);
+  const [reality, setReality] = useState(100);
+  const [desire, setDesire] = useState(10);
 
-  // Box Breathing Interval
+  // Box Breathing Coach Cycle (4s phases)
   useEffect(() => {
     const phases: ('Inhale' | 'Hold' | 'Exhale' | 'Hold')[] = ['Inhale', 'Hold', 'Exhale', 'Hold'];
-    let currentPhaseIndex = 0;
-    let countdown = 4;
-
+    let step = 0;
     const interval = setInterval(() => {
-      countdown -= 1;
-      if (countdown <= 0) {
-        currentPhaseIndex = (currentPhaseIndex + 1) % 4;
-        setBreathPhase(phases[currentPhaseIndex]);
-        countdown = 4;
-      }
-      setSecondsLeft(countdown === 0 ? 4 : countdown);
-    }, 1000);
-
+      step = (step + 1) % 4;
+      setBreathPhase(phases[step]);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -215,17 +243,116 @@ function MonkView() {
     }, 2000);
   };
 
+  const hScore = desire === 0 ? "∞" : (reality / desire).toFixed(1);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+    <div className="space-y-8 mt-4 text-left">
       
-      {/* Detachment Protocol */}
-      <div className="p-6 sm:p-8 rounded-xl bg-zinc-950/40 border border-zinc-800 border-t-2 border-t-emerald-500 flex flex-col justify-between min-h-[400px] text-left">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        
+        {/* H = O/D Happiness Engine */}
+        <div className="p-8 rounded-2xl bg-zinc-950/40 border border-zinc-800 border-t-2 border-t-emerald-500 col-span-1 xl:col-span-2 flex flex-col justify-between">
+          <div>
+            <h3 className="text-xl font-light mb-2 flex items-center gap-3 text-white">
+              <Calculator className="w-5 h-5 text-emerald-400" /> The H = O/D Happiness Engine
+            </h3>
+            <p className="text-zinc-400 text-xs sm:text-sm mb-8">
+              Happiness = What You Have (Reality) / What You Desire (Expectations). Reset your denominator to find instant peace.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              <div className="bg-[#0e0e12] p-5 rounded-xl border border-zinc-900">
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider block mb-2 font-mono">
+                  Reality (What You Have)
+                </label>
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="1000" 
+                  value={reality} 
+                  onChange={(e) => setReality(Number(e.target.value))} 
+                  className="w-full accent-emerald-500 h-1.5 rounded-lg appearance-none bg-zinc-800 cursor-pointer" 
+                />
+                <div className="text-2xl font-bold text-white mt-2 font-mono">
+                  {reality} <span className="text-xs text-zinc-500">Units</span>
+                </div>
+              </div>
+
+              <div className="bg-[#0e0e12] p-5 rounded-xl border border-zinc-900">
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider block mb-2 font-mono">
+                  Desire (Expectations)
+                </label>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="1000" 
+                  value={desire} 
+                  onChange={(e) => setDesire(Number(e.target.value))} 
+                  className="w-full accent-red-500 h-1.5 rounded-lg appearance-none bg-zinc-800 cursor-pointer" 
+                />
+                <div className="text-2xl font-bold text-white mt-2 font-mono">
+                  {desire} <span className="text-xs text-zinc-500">Units</span>
+                </div>
+              </div>
+
+              <div className="bg-emerald-500/5 p-5 rounded-xl border border-emerald-500/20 flex flex-col justify-center items-center text-center">
+                <label className="text-[10px] text-emerald-400 uppercase tracking-wider block mb-1 font-mono">
+                  Happiness Score
+                </label>
+                <div className="text-5xl font-black text-emerald-400 font-mono">
+                  {hScore}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div className="mt-8 p-4 bg-black/40 border border-zinc-900 rounded-xl text-zinc-400 italic text-xs leading-relaxed">
+            Insight: When happiness drops, you can struggle to force reality (O) to go up, OR you can dynamically reduce desires (D) to reset baseline expectations immediately.
+          </div>
+        </div>
+
+        {/* Box Breathing Coach */}
+        <div className="p-8 rounded-2xl bg-zinc-950/40 border border-zinc-800 flex flex-col items-center justify-center min-h-[350px]">
+          <h3 className="text-xs font-mono tracking-widest text-zinc-500 uppercase mb-8">
+            Box Breathing (4-4-4-4)
+          </h3>
+          
+          <div className="relative w-40 h-40 flex items-center justify-center">
+            {/* Background circle */}
+            <div className="absolute inset-0 rounded-full border-2 border-emerald-500/10" />
+            
+            {/* Pulsing Breathing Ring */}
+            <motion.div 
+              animate={{
+                scale: breathPhase === 'Inhale' || breathPhase === 'Hold' ? 1.4 : 0.95,
+                opacity: breathPhase === 'Hold' || breathPhase === 'Inhale' ? 0.9 : 0.4
+              }}
+              transition={{ duration: 4, ease: "easeInOut" }}
+              className="absolute inset-0 rounded-full border-2 border-emerald-400 bg-emerald-500/10"
+            />
+            
+            <span className="relative z-10 text-xl font-light text-white tracking-widest uppercase font-mono">
+              {breathPhase}
+            </span>
+          </div>
+          
+          <p className="text-[11px] text-zinc-500 mt-6 text-center leading-relaxed">
+            Regulate your sympathetic nervous system before transitioning to task execution.
+          </p>
+        </div>
+
+      </div>
+
+      {/* Let Go of the Pole Engine */}
+      <div className="p-6 sm:p-8 rounded-xl bg-zinc-950/40 border border-zinc-800 border-t-2 border-t-emerald-500 flex flex-col justify-between min-h-[360px]">
         <div>
-          <h3 className="text-lg font-medium text-white mb-2 flex items-center gap-3">
-            <Leaf className="w-5 h-5 text-emerald-400" /> Detachment Protocol
+          <h3 className="text-xl font-light text-white mb-2 flex items-center gap-3">
+            <Trash2 className="w-5 h-5 text-emerald-400" /> Detachment Protocol
           </h3>
           <p className="text-zinc-400 text-xs sm:text-sm mb-6 leading-relaxed">
-            "The pole won't let me go!" The villager cries. But he is the one gripping it. Drop what you are holding onto dynamically to free cognitive pipeline space.
+            "The pole won't let me go!" The villager cries. But he is the one gripping it. Drop what you are holding onto dynamically to free cognitive pipeline bandwidth.
           </p>
           
           <div className="relative mt-4">
@@ -263,38 +390,6 @@ function MonkView() {
         >
           EXECUTE RELEASE
         </button>
-      </div>
-
-      {/* Box Breathing Modality */}
-      <div className="p-6 sm:p-8 rounded-xl bg-zinc-950/40 border border-zinc-800 flex flex-col items-center justify-center min-h-[400px]">
-        <h3 className="text-xs font-mono tracking-widest text-zinc-500 uppercase mb-8">
-          Tactical Regulation (4-4-4-4)
-        </h3>
-        
-        <div className="relative w-48 h-48 flex items-center justify-center">
-          {/* Static Background Border Ring */}
-          <div className="absolute inset-0 rounded-full border border-emerald-500/10" />
-          
-          {/* Animated Glowing Ring */}
-          <motion.div 
-            animate={{
-              scale: breathPhase === 'Inhale' || breathPhase === 'Hold' ? 1.2 : 0.95,
-              opacity: breathPhase === 'Hold' || breathPhase === 'Inhale' ? 0.8 : 0.3
-            }}
-            transition={{ duration: 4, ease: "easeInOut" }}
-            className="absolute inset-0 rounded-full border-2 border-emerald-500/30 bg-emerald-500/5"
-          />
-          
-          {/* Core Display Text */}
-          <div className="relative z-10 flex flex-col items-center">
-            <span className="text-2xl font-light tracking-wide text-white font-mono">
-              {breathPhase}
-            </span>
-            <span className="text-xs font-mono text-emerald-400/80 mt-1">
-              {secondsLeft}s
-            </span>
-          </div>
-        </div>
       </div>
 
     </div>
